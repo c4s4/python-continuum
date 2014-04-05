@@ -14,11 +14,12 @@ class Continuum(object):
 
     def run(self):
         if not os.path.exists(self.config['directory']):
-            os.path.makedirs(self.config['directory'])
+            os.mkdirs(self.config['directory'])
         builds = {}
         modules = self.config['modules']
         for module in modules.keys():
-            builds[module] = self.build(modules[module])
+            builds[module] = self.build(name=module,
+                                        module=modules[module])
     
     def build(self, name, module):
         url = module['url']
@@ -26,7 +27,7 @@ class Continuum(object):
         report = {}
         current_dir = os.getcwd()
         try:
-            os.chdir(directory)
+            os.chdir(self.config['directory'])
             self.execute_with_output("")
             report['error'] = False
         except Exception:
