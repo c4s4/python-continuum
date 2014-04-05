@@ -12,7 +12,27 @@ class Continuum(object):
             self.config = yaml.load(stream)
 
     def run(self):
-        pass
+        if not os.path.exists(self.config['directory']):
+            os.path.makedirs(self.config['directory'])
+        builds = {}
+        modules = self.config['modules']
+        for module in modules.keys():
+            builds[module] = self.build(modules[module])
+    
+    def build(self, name, module):
+        url = module['url']
+        command = module['command']
+        report = {}
+        current_dir = os.getcwd()
+        try:
+            os.chdir(directory)
+            self.execute_with_output("")
+            report['error'] = False
+        except Exception:
+            report['error'] = True
+        finally:
+            os.chdir(current_dir)
+        
 
 
 if __name__ == '__main__':
