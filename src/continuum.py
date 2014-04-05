@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: UTF-8
 
+import sys
 import yaml
 
 
@@ -15,5 +16,5 @@ class Continuum(object):
 
 
 if __name__ == '__main__':
-    for config in sys.argv[1:]:
-        Continuum(config).run()
+    for _config in sys.argv[1:]:
+        Continuum(_config).run()
