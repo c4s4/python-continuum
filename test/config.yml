@@ -1,0 +1,6 @@
+directory: /tmp
+email:     casa@sweetohm.net
+
+modules:
+- name: continuum
+  url:  ssh://casa@sweetohm.net/home/git/continuum.git
