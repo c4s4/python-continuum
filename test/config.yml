@@ -6,6 +6,6 @@ modules:
     url:     ssh://casa@sweetohm.net/home/git/continuum.git
     command: |
       virtualenv env --no-site-packages
-      source env/bin/activate
+      . env/bin/activate
       pip install -r etc/requirements.txt
       bee test
