@@ -40,7 +40,7 @@ class Continuum(object):
             report['output'] += '\n## BUILD ##\n'
             report['output'] += self.execute_with_output(module['command'], shell=True)
             report['error'] = False
-        except subprocess.CallProcessError, e:
+        except subprocess.CalledProcessError, e:
             report['error'] = True
             report['output'] += e.output
         finally:
