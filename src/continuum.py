@@ -36,9 +36,8 @@ class Continuum(object):
             command = ['git', 'clone', module['url'], name]
             report['output'] = '## CHECKOUT ##\n'
             report['output'] += self.execute_with_output(command)
-            module_git = os.path.join(module_dir, '.git')
+            shutil.rmtree(os.path.join(module_dir, '.git'))
             os.chdir(module_dir)
-            shutil.rmtree(module_git)
             report['output'] += '\n## BUILD ##\n'
             report['output'] += self.execute_with_output(module['command'], shell=True)
             report['error'] = False
