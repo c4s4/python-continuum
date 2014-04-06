@@ -25,7 +25,8 @@ class Continuum(object):
         print builds
     
     def build(self, name, module):
-        print 'Building module %s...' % name
+        print 'Building module %s...' % name,
+        sys.stdout.flush()
         report = {'name': name}
         current_dir = os.getcwd()
         try:
@@ -40,10 +41,14 @@ class Continuum(object):
             os.chdir(module_dir)
             report['output'] += '\n## BUILD ##\n'
             report['output'] += self.execute_with_output(module['command'], shell=True)
+            os.chdir(self.config['directory'])
+            shutil.rmtree(module_dir)
             report['error'] = False
+            print 'OK'
         except subprocess.CalledProcessError, e:
             report['error'] = True
             report['output'] += e.output
+            print 'ERROR'
         finally:
             os.chdir(current_dir)
         return report
