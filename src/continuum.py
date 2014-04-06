@@ -25,6 +25,7 @@ class Continuum(object):
         print builds
     
     def build(self, name, module):
+        print 'Building module %s...' % name
         report = {'name': name}
         current_dir = os.getcwd()
         try:
