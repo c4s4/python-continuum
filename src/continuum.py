@@ -4,6 +4,7 @@
 import os
 import sys
 import yaml
+import mail
 import shutil
 import datetime
 import subprocess
@@ -56,7 +57,7 @@ class Continuum(object):
     
     def send_email(self, builds):
         success = True
-        for build in builds:
+        for build in builds.values():
             if not build['success']:
                 success = False
         if not success:
@@ -65,6 +66,7 @@ class Continuum(object):
             self.send_success_email(builds)
     
     def send_failure_email(self, builds):
+        print 'Sending failure email'
         subject = 'Build was a failure on %s' % datetime.datetime.now()
         email_from = self.config['email_from']
         email_to = self.config['email']
@@ -85,6 +87,7 @@ class Continuum(object):
                   recipients=[email_to], smtp_host=smtp_host)
     
     def send_success_email(self, builds):
+        print 'Sending success email'
         subject = 'Build was a success on %s' % datetime.datetime.now()
         email_from = self.config['email_from']
         email_to = self.config['email']
