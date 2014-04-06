@@ -53,7 +53,7 @@ class Continuum(object):
         if stdin:
             return subprocess.check_output(command, stderr=subprocess.STDOUT, stdin=stdin, shell=shell)
         else:
-            return subprocess.check_output(command, stderr=subprocess.STDOUT)
+            return subprocess.check_output(command, stderr=subprocess.STDOUT, shell=shell)
 
 if __name__ == '__main__':
     for _config in sys.argv[1:]:
