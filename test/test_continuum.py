@@ -13,9 +13,8 @@ class Test(unittest.TestCase):
     CONFIG = os.path.join(TEST_DIR, 'config.yml')
 
     def test(self):
-        continuum.Continuum(self.CONFIG).run()
+        continuum.Continuum(self.CONFIG)
 
 
 if __name__ == '__main__':
     unittest.main()
-
