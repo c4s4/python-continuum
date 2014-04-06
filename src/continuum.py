@@ -29,11 +29,13 @@ class Continuum(object):
         report = {'name': name}
         current_dir = os.getcwd()
         try:
+            module_dir = os.path.join(self.config['directory'], name)
             os.chdir(self.config['directory'])
+            if os.path.exists(module_dir):
+                shutil.rmtree(module_dir)
             command = ['git', 'clone', module['url'], name]
             report['output'] = '## CHECKOUT ##\n'
             report['output'] += self.execute_with_output(command)
-            module_dir = os.path.join(self.config['directory'], name)
             module_git = os.path.join(module_dir, '.git')
             os.chdir(module_dir)
             shutil.rmtree(module_git)
