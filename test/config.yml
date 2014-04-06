@@ -1,5 +1,8 @@
-directory: /home/casa/tmp
-email:     casa@sweetohm.net
+directory:  /home/casa/tmp
+smtp_host:  smtp.orange.fr
+email:      casa@sweetohm.net
+email_from: casa@sweetohm.net
+on_success: true
 
 modules:
   continuum:
