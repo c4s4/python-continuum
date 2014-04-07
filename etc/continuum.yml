@@ -8,6 +8,7 @@ modules:
   continuum:
     url:     ssh://casa@sweetohm.net/home/git/continuum.git
     command: |
+      set -e
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
@@ -15,6 +16,7 @@ modules:
   http1:
     url:     https://github.com/c4s4/http1.git
     command: |
+      set -e
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
@@ -22,6 +24,7 @@ modules:
   mysql_commando:
     url:     https://github.com/c4s4/mysql_commando.git
     command: |
+      set -e
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
