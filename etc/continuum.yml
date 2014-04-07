@@ -9,6 +9,7 @@ modules:
     url:     ssh://casa@sweetohm.net/home/git/continuum.git
     command: |
       set -e
+      export PATH=/opt/python/current/bin:$PATH
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
@@ -17,6 +18,7 @@ modules:
     url:     https://github.com/c4s4/http1.git
     command: |
       set -e
+      export PATH=/opt/python/current/bin:$PATH
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
@@ -25,6 +27,7 @@ modules:
     url:     https://github.com/c4s4/mysql_commando.git
     command: |
       set -e
+      export PATH=/opt/python/current/bin:$PATH
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
@@ -43,11 +46,20 @@ modules:
     command: bee test
   python_library:
     url:     ssh://casa@sweetohm.net/home/git/python_library.git
-    command: bee test
+    command: |
+      set -e
+      export PATH=/opt/python/current/bin:$PATH
+      bee test
   raspitools:
     url:     ssh://casa@sweetohm.net/home/git/raspitools.git
-    command: bee check
+    command: |
+      set -e
+      export PATH=/opt/python/current/bin:$PATH
+      bee check
   scripts:
     url:     ssh://casa@sweetohm.net/home/git/scripts.git
-    command: bee check
+    command: |
+      set -e
+      export PATH=/opt/python/current/bin:$PATH
+      bee check
 
