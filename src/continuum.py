@@ -22,7 +22,7 @@ class Continuum(object):
             os.mkdirs(self.config['directory'])
         builds = {}
         modules = self.config['modules']
-        for module in modules.keys():
+        for module in sorted(modules.keys()):
             builds[module] = self.build(name=module,
                                         module=modules[module])
         self.send_report(builds)
@@ -69,7 +69,7 @@ class Continuum(object):
     def send_failure_email(self, builds):
         print 'Sending failure email'
         subject = 'Build was a failure on %s' % self.datetime
-        text = 'Build on %s:\n' % self.datetime
+        text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
             status = 'OK' if builds[module]['success'] else 'ERROR'
             text += '%s: %s\n' % (module, status)
@@ -86,9 +86,9 @@ class Continuum(object):
     def send_success_email(self, builds):
         print 'Sending success email'
         subject = 'Build was a success on %s' % self.datetime
-        text = 'Build on %s:\n' % self.datetime
+        text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
-            text += '%s: OK' % module
+            text += '%s: OK\n' % module
         self.send_email(subject=subject, text=text)
     
     def send_email(self, subject, text):
