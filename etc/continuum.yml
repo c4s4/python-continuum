@@ -29,3 +29,25 @@ modules:
       . env/bin/activate
       pip install -r etc/requirements.txt
       bee test
+  bee_doc:
+    url:     ssh://casa@sweetohm.net/home/git/bee_doc.git
+    command: bee test
+  bee:
+    url:     ssh://casa@sweetohm.net/home/git/bee.git
+    command: bee test
+  bee_java:
+    url:     ssh://casa@sweetohm.net/home/git/bee_java.git
+    command: bee test
+  bee_python:
+    url:     ssh://casa@sweetohm.net/home/git/bee_python.git
+    command: bee test
+  python_library:
+    url:     ssh://casa@sweetohm.net/home/git/python_library.git
+    command: bee test
+  raspitools:
+    url:     ssh://casa@sweetohm.net/home/git/raspitools.git
+    command: bee check
+  scripts:
+    url:     ssh://casa@sweetohm.net/home/git/scripts.git
+    command: bee check
+
