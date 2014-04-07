@@ -37,7 +37,7 @@ modules:
     command: bee test
   bee:
     url:     ssh://casa@sweetohm.net/home/git/bee.git
-    command: bee test
+    command: bin/bee test
   bee_java:
     url:     ssh://casa@sweetohm.net/home/git/bee_java.git
     command: bee test
