@@ -19,7 +19,7 @@
 
 # Build properties
 - properties:
-    name:        http1
+    name:        continuum
     package:     :name
     version:     "0.3.0"
     author:      "Michel Casabianca"
