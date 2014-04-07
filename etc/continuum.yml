@@ -18,7 +18,7 @@ modules:
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
-      bee test XXX
+      bee test
   mysql_commando:
     url:     https://github.com/c4s4/mysql_commando.git
     command: |
