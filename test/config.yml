@@ -12,3 +12,17 @@ modules:
       . env/bin/activate
       pip install -r etc/requirements.txt
       bee test
+  http1:
+    url:     https://github.com/c4s4/http1.git
+    command: |
+      virtualenv env --no-site-packages
+      . env/bin/activate
+      pip install -r etc/requirements.txt
+      bee test
+  mysql_commando:
+    url:     https://github.com/c4s4/mysql_commando.git
+    command: |
+      virtualenv env --no-site-packages
+      . env/bin/activate
+      pip install -r etc/requirements.txt
+      bee test
