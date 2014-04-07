@@ -72,7 +72,7 @@ class Continuum(object):
         text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
             status = 'OK' if builds[module]['success'] else 'ERROR'
-            text += '%s: %s\n' % (module, status)
+            text += '  %s: %s\n' % (module, status)
         text += '\nReports:\n\n'
         for module in sorted(builds.keys()):
             if not builds[module]['success']:
@@ -88,14 +88,14 @@ class Continuum(object):
         subject = 'Build was a success on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
-            text += '%s: OK\n' % module
+            text += '  %s: OK\n' % module
         self.send_email(subject=subject, text=text)
     
     def send_email(self, subject, text):
         email_from = self.config['email_from']
         email_to = self.config['email']
         smtp_host = self.config['smtp_host']
-        text += '\n\n--\nContinuum'
+        text += '\n--\nContinuum'
         mail.send(subject=subject, text=text, sender=email_from,
                   recipients=[email_to], smtp_host=smtp_host)
         
