@@ -44,7 +44,7 @@ Configuration file is a YAML one::
         set -e
         commands to run the test
 
-The first part indicates::
+The first part indicates:
 
 - directory: the directory where modules will be checked out.
 - smtp_host: the hostname of your SMTP server.
@@ -53,7 +53,7 @@ The first part indicates::
 - on_success: tells if continuum will send an email on success. If *false*, it
   will only send an email on build error.
 
-The second one is the list of modules, with, for each module::
+The second one is the list of modules, with, for each module:
 
 - url: the URL of the module that GIT will use to get the sources.
 - command: the command to run tests, must return 0 on success and a different
