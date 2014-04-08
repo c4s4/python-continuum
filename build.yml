@@ -21,7 +21,7 @@
 - properties:
     name:        continuum
     package:     :name
-    version:     "0.3.0"
+    version:     "0.1.0"
     author:      "Michel Casabianca"
     email:       "casa@sweetohm.net"
     license:     "Apache Software License"
