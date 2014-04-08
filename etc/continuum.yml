@@ -1,64 +1,16 @@
-directory:  /home/casa/tmp
-smtp_host:  smtp.orange.fr
-email:      casa@sweetohm.net
-email_from: casa@sweetohm.net
-on_success: true
+directory:  /tmp
+smtp_host:  smtp.foo.com
+email:      foo@bar.com
+email_from: foo@bar.com
+on_success: false
 
 modules:
-  bee:
-    url:     ssh://casa@sweetohm.net/home/git/bee.git
-    command: bin/bee test
-  bee_java:
-    url:     ssh://casa@sweetohm.net/home/git/bee_java.git
-    command: bee test
-  bee_python:
-    url:     ssh://casa@sweetohm.net/home/git/bee_python.git
-    command: bee test
-  bee_doc:
-    url:     ssh://casa@sweetohm.net/home/git/bee_doc.git
-    command: bee test
-  http1:
-    url:     https://github.com/c4s4/http1.git
-    command: |
-      set -e
-      export PATH=/opt/python/current/bin:$PATH
-      virtualenv env --no-site-packages
-      . env/bin/activate
-      pip install -r etc/requirements.txt
-      bee test
-  mysql_commando:
-    url:     https://github.com/c4s4/mysql_commando.git
-    command: |
-      set -e
-      export PATH=/opt/python/current/bin:$PATH
-      virtualenv env --no-site-packages
-      . env/bin/activate
-      pip install -r etc/requirements.txt
-      bee test
   continuum:
-    url:     ssh://casa@sweetohm.net/home/git/continuum.git
+    url:     https://github.com/c4s4/continuum.git
     command: |
       set -e
-      export PATH=/opt/python/current/bin:$PATH
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
       bee test
-  scripts:
-    url:     ssh://casa@sweetohm.net/home/git/scripts.git
-    command: |
-      set -e
-      export PATH=/opt/python/current/bin:$PATH
-      bee check
-  raspitools:
-    url:     ssh://casa@sweetohm.net/home/git/raspitools.git
-    command: |
-      set -e
-      export PATH=/opt/python/current/bin:$PATH
-      bee check
-  python_library:
-    url:     ssh://casa@sweetohm.net/home/git/python_library.git
-    command: |
-      set -e
-      export PATH=/opt/python/current/bin:$PATH
-      bee test
+
