@@ -1,6 +1,6 @@
 directory:  /tmp
 smtp_host:  smtp.foo.com
-email:      foo@bar.com
+email_to:   foo@bar.com
 email_from: foo@bar.com
 on_success: false
 

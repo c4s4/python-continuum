@@ -93,7 +93,7 @@ class Continuum(object):
     
     def send_email(self, subject, text):
         email_from = self.config['email_from']
-        email_to = self.config['email']
+        email_to = self.config['email_to']
         smtp_host = self.config['smtp_host']
         text += '\n--\nContinuum'
         mail.send(subject=subject, text=text, sender=email_from,
