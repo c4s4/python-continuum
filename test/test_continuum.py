@@ -10,7 +10,7 @@ import continuum
 class Test(unittest.TestCase):
 
     TEST_DIR = os.path.dirname(__file__)
-    CONFIG = os.path.join(TEST_DIR, 'config.yml')
+    CONFIG = os.path.join(TEST_DIR, '..', 'etc', 'continuum.yml')
 
     def test(self):
         continuum.Continuum(self.CONFIG)
