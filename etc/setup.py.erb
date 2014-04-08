@@ -13,5 +13,10 @@ setup(
     license = '<%= license %>',
     description = '<%= description %>',
     long_description=open('README.rst').read(),
+    entry_points = {
+        'console_scripts': [
+            'continuum = continuum.continuum.run',
+        ],
+    },
 )
 
