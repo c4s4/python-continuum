@@ -106,6 +106,11 @@ class Continuum(object):
         else:
             return subprocess.check_output(command, stderr=subprocess.STDOUT, shell=shell)
 
-if __name__ == '__main__':
+
+def run():
     for _config in sys.argv[1:]:
         Continuum(_config).run()
+
+
+if __name__ == '__main__':
+    run()
