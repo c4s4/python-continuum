@@ -2,18 +2,14 @@
 CONTINUUM
 =========
 
-Continuum is a lightweight continuous integration tool: no web interface, no 
-scheduler. It runs on command line and is triggered by cron.
+Continuum is a lightweight continuous integration tool: no web interface, no scheduler. It runs on command line and is triggered by cron.
 
 Installation
 ============
 
-You may install it using PIP, typing *pip install continuum*. This will install
-the *continuum* script in you PATH. You may also call the *continuum.py* script
-in the archive with python: *python continuum.py*.
+You can install it using PIP, typing *pip install continuum*. This will install the *continuum* script in you PATH. You may also download the archive, expand it and type in the created directory *sudo python setup.py install*.
 
-While calling continuum, you must pass the configuration file name on the 
-command line::
+While calling continuum, you must pass the configuration file name on the command line::
 
   continuum config.yml
 
@@ -21,7 +17,7 @@ command line::
 Configuration
 =============
 
-Configuration file is a YAML one::
+Configuration is in YAML format::
 
   directory:  /tmp
   smtp_host:  smtp.foo.com
@@ -46,26 +42,23 @@ Configuration file is a YAML one::
 
 The first part indicates:
 
-- directory: the directory where modules will be checked out.
+- directory: the directory where modules will be checked out. Currently only GIT projects are supported.
 - smtp_host: the hostname of your SMTP server.
 - email_to:  the email of the recipient of the build report.
 - email_from: the email address if the sender of the report.
-- on_success: tells if continuum will send an email on success. If *false*, it
-  will only send an email on build error.
+- on_success: tells if continuum will send an email on success. If *false*, it will only send an email on build error.
 
 The second one is the list of modules, with, for each module:
 
 - url: the URL of the module that GIT will use to get the sources.
-- command: the command to run tests, must return 0 on success and a different
-  value on error (as any Unix script should).
+- command: the command to run tests, must return 0 on success and a different value on error (as any Unix script should).
 
 Crontab
 =======
 
-This script is triggered using cron, with as configuration as follows::
+This script is triggered using cron, with as configuration as follows (in file */etc/crontab*)::
 
   # run continuum at 4 every night
   0   4 * * *  me    continuum /home/me/etc/continuum.yml
 
 Enjoy!
-
