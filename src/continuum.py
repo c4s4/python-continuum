@@ -108,9 +108,10 @@ class Continuum(object):
 
 
 def run():
-    for _config in sys.argv[1:]:
-        Continuum(_config).run()
+    for config in sys.argv[1:]:
+        Continuum(config).run()
 
 
 if __name__ == '__main__':
     run()
+
