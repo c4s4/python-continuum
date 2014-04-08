@@ -44,8 +44,6 @@ class Continuum(object):
             os.chdir(module_dir)
             report['output'] = 'Error building project:\n'
             report['output'] = self.execute_with_output(module['command'], shell=True)
-            os.chdir(self.config['directory'])
-            shutil.rmtree(module_dir)
             report['success'] = True
             print 'OK'
         except subprocess.CalledProcessError, e:
@@ -53,6 +51,8 @@ class Continuum(object):
             report['output'] += e.output
             print 'ERROR'
         finally:
+            if os.path.exists(module_dir):
+                shutil.rmtree(module_dir)
             os.chdir(current_dir)
         return report
     
