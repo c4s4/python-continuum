@@ -1,5 +1,5 @@
 directory:  /tmp
-email:      nil
+email:      ~
 
 modules:
   continuum:

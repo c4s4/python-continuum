@@ -44,7 +44,10 @@ Configuration is in YAML format::
 The first part indicates:
 
 - directory: the directory where modules will be checked out. Currently only GIT projects are supported.
-- email: put *nil* if you don't want any email, else provide following fields:
+- email: put *~* if you don't want any email.
+
+If you wait to receive email reports, provide following fields:
+
 - smtp_host: the hostname of your SMTP server.
 - recipient:  the email of the recipient of the build report.
 - sender: the email address if the sender of the report.
