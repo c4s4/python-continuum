@@ -19,6 +19,7 @@ class Continuum(object):
         self.datetime = str(datetime.datetime.now())[:19]
 
     def run(self):
+        start_time = datetime.datetime.now()
         if not os.path.exists(self.config['directory']):
             os.mkdirs(self.config['directory'])
         builds = {}
@@ -26,7 +27,8 @@ class Continuum(object):
         for module in sorted(modules.keys()):
             builds[module] = self.build(name=module,
                                         module=modules[module])
-        self.send_report(builds)
+        duration = datetime.datetime.now() - start_time
+        self.send_report(builds, duration)
     
     def build(self, name, module):
         print 'Building module %s...' % name,
@@ -57,17 +59,17 @@ class Continuum(object):
             os.chdir(current_dir)
         return report
     
-    def send_report(self, builds):
+    def send_report(self, builds, duration):
         success = True
         for build in builds.values():
             if not build['success']:
                 success = False
         if not success:
-            self.send_failure_email(builds)
+            self.send_failure_email(builds, duration)
         elif success and self.config['on_success']:
-            self.send_success_email(builds)
+            self.send_success_email(builds, duration)
     
-    def send_failure_email(self, builds):
+    def send_failure_email(self, builds, duration):
         print 'Sending failure email'
         subject = 'Build was a failure on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
@@ -82,20 +84,23 @@ class Continuum(object):
                 text += '-'*80 + '\n'
                 text += builds[module]['output'] + '\n'
                 text += '-'*80 + '\n\n'
-        self.send_email(subject=subject, text=text)
+        self.send_email(subject=subject, text=text,
+                        duration=duration)
     
-    def send_success_email(self, builds):
+    def send_success_email(self, builds, duration):
         print 'Sending success email'
         subject = 'Build was a success on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
             text += '  %s: OK\n' % module
-        self.send_email(subject=subject, text=text)
+        self.send_email(subject=subject, text=text,
+                        duration=duration)
     
-    def send_email(self, subject, text):
+    def send_email(self, subject, text, duration):
         email_from = self.config['email_from']
         email_to = self.config['email_to']
         smtp_host = self.config['smtp_host']
+        text += '\nDone in %s' % duration
         text += '\n--\nContinuum'
         mail.send(subject=subject, text=text, sender=email_from,
                   recipients=[email_to], smtp_host=smtp_host)
