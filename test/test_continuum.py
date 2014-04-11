@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     TEST_DIR = os.path.dirname(__file__)
     CONFIG = os.path.join(TEST_DIR, '..', 'etc', 'continuum.yml')
 
-    def test(self):
+    def test_continuum(self):
         old_stdout = sys.stdout
         sys.stdout = StringIO()
         try:
