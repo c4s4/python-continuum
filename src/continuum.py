@@ -100,10 +100,16 @@ class Continuum(object):
         email_from = self.config['email_from']
         email_to = self.config['email_to']
         smtp_host = self.config['smtp_host']
-        text += '\nDone in %s' % duration
+        text += '\nDone in %s' % self.duration_to_hms(duration)
         text += '\n--\nContinuum'
         mail.send(subject=subject, text=text, sender=email_from,
                   recipients=[email_to], smtp_host=smtp_host)
+
+    def duration_to_hms(self, duration):
+        hms = str(duration)
+        if '.' in hms:
+            hms = hms.split('.')[0]
+        return hms
         
     @staticmethod
     def execute_with_output(command, stdin=None, shell=False):
