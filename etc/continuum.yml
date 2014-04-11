@@ -1,8 +1,8 @@
 directory:  /tmp
-smtp_host:  smtp.foo.com
-email_to:   foo@bar.com
-email_from: foo@bar.com
-on_success: false
+smtp_host:  smtp.orange.fr
+email_to:   casa@sweetohm.net
+email_from: casa@sweetohm.net
+on_success: true
 
 modules:
   continuum:
@@ -12,5 +12,5 @@ modules:
       virtualenv env --no-site-packages
       . env/bin/activate
       pip install -r etc/requirements.txt
-      bee test
+      bee check
 
