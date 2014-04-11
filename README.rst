@@ -20,10 +20,11 @@ Configuration
 Configuration is in YAML format::
 
   directory:  /tmp
-  smtp_host:  smtp.foo.com
-  emaili_to:  foo@bar.com
-  email_from: foo@bar.com
-  on_success: false
+  email:
+    smtp_host: smtp.foo.com
+    recipient: foo@bar.com
+    sender:    foo@bar.com
+    success:   false
   
   modules:
     continuum:
@@ -43,10 +44,11 @@ Configuration is in YAML format::
 The first part indicates:
 
 - directory: the directory where modules will be checked out. Currently only GIT projects are supported.
+- email: put *nil* if you don't want any email, else provide following fields:
 - smtp_host: the hostname of your SMTP server.
-- email_to:  the email of the recipient of the build report.
-- email_from: the email address if the sender of the report.
-- on_success: tells if continuum will send an email on success. If *false*, it will only send an email on build error.
+- recipient:  the email of the recipient of the build report.
+- sender: the email address if the sender of the report.
+- success: tells if continuum should send an email on success. If *false*, it will only send an email on build error.
 
 The second one is the list of modules, with, for each module:
 
@@ -61,4 +63,11 @@ This script is triggered using cron, with as configuration as follows (in file *
   # run continuum at 4 every night
   0   4 * * *  me    continuum /home/me/etc/continuum.yml
 
+eleases
+========
+
+- **0.1.1** (*2014-04-11*): Improved email reporting.
+- **0.1.0** (*2014-04-08*): First public release.
+
 Enjoy!
+
