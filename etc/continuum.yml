@@ -1,8 +1,5 @@
 directory:  /tmp
-smtp_host:  smtp.orange.fr
-email_to:   casa@sweetohm.net
-email_from: casa@sweetohm.net
-on_success: true
+email:      nil
 
 modules:
   continuum:

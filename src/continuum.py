@@ -28,10 +28,10 @@ class Continuum(object):
             builds[module] = self.build(name=module,
                                         module=modules[module])
         duration = datetime.datetime.now() - start_time
-        self.send_report(builds, duration)
+        self.report(builds, duration)
     
     def build(self, name, module):
-        print 'Building module %s...' % name,
+        print 'Building module %s... ' % name,
         sys.stdout.flush()
         report = {'name': name}
         current_dir = os.getcwd()
@@ -46,7 +46,8 @@ class Continuum(object):
             shutil.rmtree(os.path.join(module_dir, '.git'))
             os.chdir(module_dir)
             report['output'] = 'Error building project:\n'
-            report['output'] = self.execute_with_output(module['command'], shell=True)
+            report['output'] = self.execute_with_output(module['command'],
+                                                        shell=True)
             report['success'] = True
             print 'OK'
         except subprocess.CalledProcessError, e:
@@ -59,18 +60,19 @@ class Continuum(object):
             os.chdir(current_dir)
         return report
     
-    def send_report(self, builds, duration):
+    def report(self, builds, duration):
         success = True
         for build in builds.values():
             if not build['success']:
                 success = False
-        if not success:
-            self.send_failure_email(builds, duration)
-        elif success and self.config['on_success']:
-            self.send_success_email(builds, duration)
+        print 'Done in %s' % self.duration_to_hms(duration)
+        if self.config['email']:
+            if not success:
+                self.send_failure_email(builds, duration)
+            elif self.config['email']['success']:
+                self.send_success_email(builds, duration)
     
     def send_failure_email(self, builds, duration):
-        print 'Sending failure email'
         subject = 'Build was a failure on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
@@ -88,7 +90,6 @@ class Continuum(object):
                         duration=duration)
     
     def send_success_email(self, builds, duration):
-        print 'Sending success email'
         subject = 'Build was a success on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
         for module in sorted(builds.keys()):
@@ -97,9 +98,10 @@ class Continuum(object):
                         duration=duration)
     
     def send_email(self, subject, text, duration):
-        email_from = self.config['email_from']
-        email_to = self.config['email_to']
-        smtp_host = self.config['smtp_host']
+        print 'Sending email'
+        email_from = self.config['email']['sender']
+        email_to = self.config['email']['recipient']
+        smtp_host = self.config['email']['smtp_host']
         text += '\nDone in %s' % self.duration_to_hms(duration)
         text += '\n--\nContinuum'
         mail.send(subject=subject, text=text, sender=email_from,
@@ -114,9 +116,13 @@ class Continuum(object):
     @staticmethod
     def execute_with_output(command, stdin=None, shell=False):
         if stdin:
-            return subprocess.check_output(command, stderr=subprocess.STDOUT, stdin=stdin, shell=shell)
+            return subprocess.check_output(command,
+                                           stderr=subprocess.STDOUT,
+                                           stdin=stdin, shell=shell)
         else:
-            return subprocess.check_output(command, stderr=subprocess.STDOUT, shell=shell)
+            return subprocess.check_output(command,
+                                           stderr=subprocess.STDOUT,
+                                           shell=shell)
 
 
 def run():
