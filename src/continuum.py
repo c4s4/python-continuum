@@ -4,6 +4,7 @@
 import os
 import sys
 import yaml
+#pylint: disable=W0403
 import mail
 import shutil
 import datetime
