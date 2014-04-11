@@ -63,7 +63,7 @@ This script is triggered using cron, with as configuration as follows (in file *
   # run continuum at 4 every night
   0   4 * * *  me    continuum /home/me/etc/continuum.yml
 
-eleases
+Releases
 ========
 
 - **0.1.1** (*2014-04-11*): Improved email reporting.
