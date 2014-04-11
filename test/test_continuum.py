@@ -6,6 +6,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 import unittest
 import continuum
+from cStringIO import StringIO
 
 class Test(unittest.TestCase):
 
@@ -13,8 +14,14 @@ class Test(unittest.TestCase):
     CONFIG = os.path.join(TEST_DIR, '..', 'etc', 'continuum.yml')
 
     def test(self):
-        continuum.Continuum(self.CONFIG)
+        old_stdout = sys.stdout
+        sys.stdout = StringIO()
+        try:
+            continuum.Continuum(self.CONFIG).run()
+        finally:
+            sys.stdout = old_stdout
 
 
 if __name__ == '__main__':
     unittest.main()
+
