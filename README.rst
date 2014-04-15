@@ -71,6 +71,7 @@ This script is triggered using cron, with as configuration as follows (in file *
 Releases
 ========
 
+- **0.1.2** (*2014-04-15*): Fixed documentation.
 - **0.1.1** (*2014-04-11*): Improved email reporting.
 - **0.1.0** (*2014-04-08*): First public release.
 
