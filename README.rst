@@ -68,6 +68,13 @@ This script is triggered using cron, with as configuration as follows (in file *
   # run continuum at 4 every night
   0   4 * * *  me    continuum /home/me/etc/continuum.yml
 
+Please make sure that the PATH to continuum is defined in your cron configuration. You may add the right PATH at the beginning of your *crontab* file as following::
+
+  PATH=/path/to/continuum:/rest/of/my/path
+  
+  # run continuum at 4 every night
+  0   4 * * *  me    continuum /home/me/etc/continuum.yml      
+
 Releases
 ========
 
