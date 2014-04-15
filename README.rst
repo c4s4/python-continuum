@@ -37,7 +37,7 @@ Configuration is in YAML format::
         bee test
     module2:
       url:     https://github.com/foo/bar.git
-      command:
+      command: |
         set -e
         commands to run the test
 
@@ -56,7 +56,9 @@ If you wait to receive email reports, provide following fields:
 The second one is the list of modules, with, for each module:
 
 - url: the URL of the module that GIT will use to get the sources.
-- command: the command to run tests, must return 0 on success and a different value on error (as any Unix script should).
+- command: the command to run tests, must return 0 on success and a different value on error (as any Unix script should). Note the pipe character (that is *|*) after the *command:* declaration.
+
+The most important thing to remember about editting YAML is that Tab characters are forbidden (and should be replaced with spaces to properly indent). Please see YAML specification (at http://www.yaml.org/spec/1.2/spec.html) for more details.
 
 Crontab
 =======
