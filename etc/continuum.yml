@@ -1,8 +1,7 @@
-directory:  /tmp
+directory:  ~/tmp/
 email:      ~
 
 modules:
   continuum:
     url:     https://github.com/c4s4/continuum.git
     command: echo "TEST"
-
