@@ -4,10 +4,5 @@ email:      ~
 modules:
   continuum:
     url:     https://github.com/c4s4/continuum.git
-    command: |
-      set -e
-      virtualenv env --no-site-packages
-      . env/bin/activate
-      pip install -r etc/requirements.txt
-      bee check
+    command: echo "TEST"
 
