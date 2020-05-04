@@ -5,7 +5,7 @@ import os
 import sys
 import yaml
 #pylint: disable=W0403
-import mail
+from . import mail
 import shutil
 import datetime
 import subprocess
@@ -15,7 +15,7 @@ class Continuum(object):
 
     def __init__(self, config):
         with open(config) as stream:
-            self.config = yaml.load(stream)
+            self.config = yaml.load(stream, Loader=yaml.FullLoader)
         self.datetime = str(datetime.datetime.now())[:19]
 
     def run(self):
@@ -29,9 +29,9 @@ class Continuum(object):
                                         module=modules[module])
         duration = datetime.datetime.now() - start_time
         self.report(builds, duration)
-    
+
     def build(self, name, module):
-        print 'Building module %s... ' % name,
+        print('Building module %s... ' % name, end="")
         sys.stdout.flush()
         report = {'name': name}
         current_dir = os.getcwd()
@@ -49,29 +49,29 @@ class Continuum(object):
             report['output'] = self.execute_with_output(module['command'],
                                                         shell=True)
             report['success'] = True
-            print 'OK'
-        except subprocess.CalledProcessError, e:
+            print('OK')
+        except subprocess.CalledProcessError as e:
             report['success'] = False
             report['output'] += e.output
-            print 'ERROR'
+            print('ERROR')
         finally:
             if os.path.exists(module_dir):
                 shutil.rmtree(module_dir)
             os.chdir(current_dir)
         return report
-    
+
     def report(self, builds, duration):
         success = True
-        for build in builds.values():
+        for build in list(builds.values()):
             if not build['success']:
                 success = False
-        print 'Done in %s' % self.duration_to_hms(duration)
+        print('Done in %s' % self.duration_to_hms(duration))
         if self.config['email']:
             if not success:
                 self.send_failure_email(builds, duration)
             elif self.config['email']['success']:
                 self.send_success_email(builds, duration)
-    
+
     def send_failure_email(self, builds, duration):
         subject = 'Build was a failure on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
@@ -88,7 +88,7 @@ class Continuum(object):
                 text += '-'*80 + '\n\n'
         self.send_email(subject=subject, text=text,
                         duration=duration)
-    
+
     def send_success_email(self, builds, duration):
         subject = 'Build was a success on %s' % self.datetime
         text = 'Build on %s:\n\n' % self.datetime
@@ -96,9 +96,9 @@ class Continuum(object):
             text += '  %s: OK\n' % module
         self.send_email(subject=subject, text=text,
                         duration=duration)
-    
+
     def send_email(self, subject, text, duration):
-        print 'Sending email'
+        print('Sending email')
         email_from = self.config['email']['sender']
         email_to = self.config['email']['recipient']
         smtp_host = self.config['email']['smtp_host']
@@ -112,7 +112,7 @@ class Continuum(object):
         if '.' in hms:
             hms = hms.split('.')[0]
         return hms
-        
+
     @staticmethod
     def execute_with_output(command, stdin=None, shell=False):
         if stdin:
@@ -132,4 +132,3 @@ def run():
 
 if __name__ == '__main__':
     run()
-

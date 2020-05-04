@@ -3,6 +3,7 @@
 
 from distutils.core import setup
 
+
 setup(
     name = 'continuum_ci',
     version = '#VERSION#',
@@ -13,6 +14,9 @@ setup(
     license = 'Apache Software License',
     description = 'Continuum is a minimalist continuous integration tool',
     long_description=open('README.rst').read(),
+    install_requires=[
+        'PyYAML',
+    ],
     entry_points = {
         'console_scripts': [
             'continuum = continuum:run',

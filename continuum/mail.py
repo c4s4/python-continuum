@@ -10,18 +10,21 @@ from email.mime.text import MIMEText
 from email.encoders import encode_base64
 from email.mime.multipart import MIMEMultipart
 
+
 ENCODING = 'UTF-8'
 SMTP_HOST = 'smtp.orange.fr'
 RECIPIENT = 'michel.casabianca@gmail.com'
 SENDER = RECIPIENT
 
+
 def _binary(string):
-    if isinstance(string, unicode):
+    if isinstance(string, str):
         return string.encode(ENCODING)
     elif isinstance(string, list):
         return [_binary(e) for e in string]
     else:
         return str(string)
+
 
 def send(subject, text, sender=SENDER, recipients=[RECIPIENT], attachments={}, smtp_host=SMTP_HOST, encoding=ENCODING):
     # encode all strings in binary strings
@@ -39,7 +42,7 @@ def send(subject, text, sender=SENDER, recipients=[RECIPIENT], attachments={}, s
     # attach text part
     message.attach(MIMEText(text, _charset=encoding))
     # attach attachments if any
-    for name,filename in attachments.items():
+    for name,filename in list(attachments.items()):
         part = MIMEBase('application', 'octet-stream')
         part.set_payload(open(filename,"rb").read())
         encode_base64(part)
@@ -48,6 +51,7 @@ def send(subject, text, sender=SENDER, recipients=[RECIPIENT], attachments={}, s
     smtp = smtplib.SMTP(smtp_host)
     smtp.sendmail(sender, recipients, message.as_string())
     smtp.quit()
+
 
 HELP = '''mail.py [-h] -f from -r recipient -s subject -a file -m smtphost -e encoding message
 Send an email with following:
@@ -60,6 +64,7 @@ Send an email with following:
 -e encoding   The encoding to use
 message       The message'''
 
+
 if __name__ == '__main__':
     _sender     = SENDER
     _recipients = []
@@ -70,13 +75,13 @@ if __name__ == '__main__':
     _message    = None
     try:
         OPTS, ARGS = getopt.getopt(sys.argv[1:], "hf:r:s:a:m:e:", ["help", "from", "recipient", "subject", "attachement", "smtp", "encoding"])
-    except getopt.GetoptError, error:
-        print "ERROR: %s" % str(error)
-        print HELP
+    except getopt.GetoptError as error:
+        print("ERROR: %s" % str(error))
+        print(HELP)
         sys.exit(1)
     for OPT, ARG in OPTS:
         if OPT == '-h' or OPT == '--help':
-            print HELP
+            print(HELP)
             sys.exit(0)
         elif OPT == '-f' or OPT == '--from':
             _sender = ARG
@@ -92,18 +97,18 @@ if __name__ == '__main__':
         elif OPT == '-e' or OPT == '--encoding':
             _encoding = ARG
         else:
-            print "Unhandled option: %s" % OPT
-            print HELP
+            print("Unhandled option: %s" % OPT)
+            print(HELP)
             sys.exit(1)
     _message = ' '.join(ARGS)
     if len(_recipients) < 1:
         _recipients = [RECIPIENT]
     if not _subject:
-        print "Missing subject"
-        print HELP
+        print("Missing subject")
+        print(HELP)
         sys.exit(1)
     if not _message:
-        print "Missing message"
-        print HELP
+        print("Missing message")
+        print(HELP)
         sys.exit(1)
     send(_subject, _message, _sender, _recipients, _attach, _smtp, _encoding)

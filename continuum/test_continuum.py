@@ -5,8 +5,9 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 import unittest
-import continuum
-from cStringIO import StringIO
+from . import continuum
+from io import StringIO
+
 
 class Test(unittest.TestCase):
 
@@ -24,4 +25,3 @@ class Test(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

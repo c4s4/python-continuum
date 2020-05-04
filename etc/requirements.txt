@@ -1,6 +1,4 @@
 # runtime
-PyYAML==3.11
+PyYAML==5.3.1
 # tests
-pylint==1.1.0
-astroid==1.0.1
-logilab-common==0.61.0
+pylint
