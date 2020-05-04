@@ -3,5 +3,5 @@ email:      ~
 
 modules:
   continuum:
-    url:     https://github.com/c4s4/continuum.git
+    url:     https://github.com/c4s4/python-continuum.git
     command: echo "TEST"
