@@ -2,49 +2,31 @@
 # See make-tools at https://github.com/c4s4/make-tools
 
 # Parent makefiles at https://github.com/c4s4/make
-include ~/.make/color.mk
 include ~/.make/help.mk
+include ~/.make/python.mk
 include ~/.make/clean.mk
 include ~/.make/git.mk
 
-VERSION=0.1.4
-NAME=continuum
-DIR=$(shell pwd)
-VENV=$(DIR)/venv
-PYTHON=$(VENV)/bin/python
+PYTHON_MOD=continuum
 
-.PHONY: venv
-venv: # Create virtual environment
-	@echo "$(YEL)Creating virtual environment$(END)"
-	rm -rf $(VENV)
-	python -m venv $(VENV)
-
-libs: venv # Install libraries
-	@echo "$(YEL)Installing libraries$(END)"
-	$(VENV)/bin/pip install -r etc/requirements.txt
-
-.PHONY: test
-test: # Run tests
-	@echo "$(YEL)Running tests$(END)"
-	$(PYTHON) -m $(NAME).test_$(NAME)
+integ: dist # Run integration test
+	@echo "$(YEL)Running integration test$(END)"
+	@cd $(BUILD_DIR); \
+	$(PYTHON) -m venv venv; \
+	venv/bin/pip install --upgrade pip; \
+	venv/bin/pip install ./continuum_ci-0.0.0.tar.gz; \
+	venv/bin/continuum ../continuum.yml
 
 dist: clean # Generat distribution archive
 	@echo "$(YEL)Generating distribution archive$(END)"
 	mkdir $(BUILD_DIR)
-	cp etc/setup.py $(BUILD_DIR)/setup.py
-	sed -i 's/#VERSION#/$(VERSION)/g' $(BUILD_DIR)/setup.py
-	cp etc/MANIFEST.in README.rst LICENSE $(BUILD_DIR)/
-	cp -r $(NAME) $(BUILD_DIR)
+	cp -r $(PYTHON_MOD) LICENSE MANIFEST.in README.rst setup.py $(BUILD_DIR)/
+	sed -i 's/0.0.0/$(TAG)/g' $(BUILD_DIR)/setup.py
 	cd $(BUILD_DIR) && $(PYTHON) setup.py sdist -d .
 
-upload: # Upload distribution archive
+upload: dist # Upload distribution archive
 	@echo "$(YEL)Uploading distribution archive$(END)"
 	cd $(BUILD_DIR) && $(PYTHON) setup.py sdist -d . register upload
 
-tag: # Tag release
-	@echo "$(YEL)Tagging release$(END)"
-	git tag -a $(VERSION) -m 'Release $(VERSION)'
-	git push --tags
-
-publish: dist upload tag # Publish archive on Pypi
-	@echo "$(YEL)Published archive on Pypi$(END)"
+release: tag upload # Release project on Pypi
+	@echo "$(YEL)Released project on Pypi$(END)"

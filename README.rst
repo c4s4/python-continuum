@@ -7,7 +7,7 @@ Continuum is a lightweight continuous integration tool: no web interface, no sch
 Installation
 ============
 
-You can install it using PIP, typing *pip install continuum*. This will install the *continuum* script in you PATH. You may also download the archive, expand it and type in the created directory *sudo python setup.py install*.
+You can install it using PIP, typing *pip install continuum_ci*. This will install the *continuum* script in you PATH. You may also download the archive, expand it and type in the created directory *python setup.py install*.
 
 While calling continuum, you must pass the configuration file name on the command line::
 
@@ -78,6 +78,7 @@ Please make sure that the PATH to continuum is defined in your cron configuratio
 Releases
 ========
 
+- **0.1.5** (*2020-05-05*): Documentation fixed and added integration test.
 - **0.1.4** (*2020-05-04*): Migration to Python 3.
 - **0.1.3** (*2020-05-04*): Project renamed continuum_ci and added makefile.
 - **0.1.2** (*2014-04-15*): Fixed documentation.

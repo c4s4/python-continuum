@@ -4,14 +4,13 @@
 import os
 import sys
 import yaml
-#pylint: disable=W0403
-from . import mail
 import shutil
 import datetime
 import subprocess
+import continuum.mail
 
 
-class Continuum(object):
+class Continuum:
 
     def __init__(self, config):
         with open(config) as stream:
@@ -119,10 +118,9 @@ class Continuum(object):
             return subprocess.check_output(command,
                                            stderr=subprocess.STDOUT,
                                            stdin=stdin, shell=shell)
-        else:
-            return subprocess.check_output(command,
-                                           stderr=subprocess.STDOUT,
-                                           shell=shell)
+        return subprocess.check_output(command,
+                                       stderr=subprocess.STDOUT,
+                                       shell=shell)
 
 
 def run():

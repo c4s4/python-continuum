@@ -20,10 +20,9 @@ SENDER = RECIPIENT
 def _binary(string):
     if isinstance(string, str):
         return string.encode(ENCODING)
-    elif isinstance(string, list):
+    if isinstance(string, list):
         return [_binary(e) for e in string]
-    else:
-        return str(string)
+    return str(string)
 
 
 def send(subject, text, sender=SENDER, recipients=[RECIPIENT], attachments={}, smtp_host=SMTP_HOST, encoding=ENCODING):
@@ -80,21 +79,21 @@ if __name__ == '__main__':
         print(HELP)
         sys.exit(1)
     for OPT, ARG in OPTS:
-        if OPT == '-h' or OPT == '--help':
+        if OPT in ('-h', '--help'):
             print(HELP)
             sys.exit(0)
-        elif OPT == '-f' or OPT == '--from':
+        elif OPT in ('-f', '--from'):
             _sender = ARG
-        elif OPT == '-r' or OPT == '--recipient':
+        elif OPT in ('-r', '--recipient'):
             _recipients.append(ARG)
-        elif OPT == '-s' or OPT == '--subject':
+        elif OPT in ('-s', '--subject'):
             _subject = ARG
-        elif OPT == '-a' or OPT == '--attach':
+        elif OPT in ('-a', '--attach'):
             _name = os.path.basename(ARG)
             _attach[_name] = ARG
-        elif OPT == '-m' or OPT == '--smtp':
+        elif OPT in ('-m', '--smtp'):
             _smtp = ARG
-        elif OPT == '-e' or OPT == '--encoding':
+        elif OPT in ('-e', '--encoding'):
             _encoding = ARG
         else:
             print("Unhandled option: %s" % OPT)

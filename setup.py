@@ -6,7 +6,7 @@ from distutils.core import setup
 
 setup(
     name = 'continuum_ci',
-    version = '#VERSION#',
+    version = '0.0.0',
     author = 'Michel Casabianca',
     author_email = 'casa@sweetohm.net',
     packages = ['continuum'],

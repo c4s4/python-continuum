@@ -1,4 +1,3 @@
 # encoding: UTF-8
 
-#pylint: disable=W0403
-from .continuum import run, Continuum
+from continuum.continuum import run, Continuum
