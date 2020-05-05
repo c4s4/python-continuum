@@ -11,7 +11,8 @@ PYTHON_MOD=continuum
 
 integ: dist # Run integration test
 	@echo "$(YEL)Running integration test$(END)"
-	@cd $(BUILD_DIR); \
+	@mkdir -p $(BUILD_DIR); \
+	cd $(BUILD_DIR); \
 	$(PYTHON) -m venv venv; \
 	venv/bin/pip install --upgrade pip; \
 	venv/bin/pip install ./continuum_ci-0.0.0.tar.gz; \
