@@ -78,6 +78,7 @@ Please make sure that the PATH to continuum is defined in your cron configuratio
 Releases
 ========
 
+- **0.1.6** (*2020-05-05*): Bug fixed.
 - **0.1.5** (*2020-05-05*): Documentation fixed and added integration test.
 - **0.1.4** (*2020-05-04*): Migration to Python 3.
 - **0.1.3** (*2020-05-04*): Project renamed continuum_ci and added makefile.

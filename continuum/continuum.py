@@ -103,8 +103,8 @@ class Continuum:
         smtp_host = self.config['email']['smtp_host']
         text += '\nDone in %s' % self.duration_to_hms(duration)
         text += '\n--\nContinuum'
-        mail.send(subject=subject, text=text, sender=email_from,
-                  recipients=[email_to], smtp_host=smtp_host)
+        continuum.mail.send(subject=subject, text=text, sender=email_from,
+                            recipients=[email_to], smtp_host=smtp_host)
 
     def duration_to_hms(self, duration):
         hms = str(duration)
