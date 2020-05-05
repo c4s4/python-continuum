@@ -15,7 +15,7 @@ integ: dist # Run integration test
 	cd $(BUILD_DIR); \
 	$(PYTHON) -m venv venv; \
 	venv/bin/pip install --upgrade pip; \
-	venv/bin/pip install ./continuum_ci-0.0.0.tar.gz; \
+	venv/bin/pip install ./continuum_ci-*.tar.gz; \
 	venv/bin/continuum ../continuum.yml
 
 pypi: clean # Test installation from Pypi
