@@ -7,7 +7,7 @@ import yaml
 import shutil
 import datetime
 import subprocess
-import continuum.mail
+import mail1
 
 
 class Continuum:
@@ -51,7 +51,7 @@ class Continuum:
             print('OK')
         except subprocess.CalledProcessError as e:
             report['success'] = False
-            report['output'] += e.output
+            report['output'] += str(e.output)
             print('ERROR')
         finally:
             if os.path.exists(module_dir):
@@ -100,11 +100,20 @@ class Continuum:
         print('Sending email')
         email_from = self.config['email']['sender']
         email_to = self.config['email']['recipient']
-        smtp_host = self.config['email']['smtp_host']
+        smtp_host = None
+        if 'smtp_host' in self.config['email']:
+            smtp_host = self.config['email']['smtp_host']
+        username = None
+        if 'smtp_user' in self.config['email']:
+            username = self.config['email']['smtp_user']
+        password = None
+        if 'smtp_pass' in self.config['email']:
+            password = self.config['email']['smtp_pass']
         text += '\nDone in %s' % self.duration_to_hms(duration)
         text += '\n--\nContinuum'
-        continuum.mail.send(subject=subject, text=text, sender=email_from,
-                            recipients=[email_to], smtp_host=smtp_host)
+        mail1.send(subject=subject, text=text, sender=email_from,
+                   recipients=[email_to], smtp_host=smtp_host,
+                   username=username, password=password)
 
     def duration_to_hms(self, duration):
         hms = str(duration)

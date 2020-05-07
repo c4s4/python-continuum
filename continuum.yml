@@ -1,7 +1,11 @@
-directory:  /home/casa/tmp/
-email:      ~
+directory: /tmp/
+email:
+  recipient: michel.casabianca@gmail.com
+  sender:    michel.casabianca@gmail.com
+  success:   true
 
 modules:
   continuum:
     url:     https://github.com/c4s4/python-continuum.git
-    command: echo "TEST"
+    command: |
+      exit ${RESULT}

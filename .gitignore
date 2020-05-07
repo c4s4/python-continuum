@@ -1,5 +1,5 @@
 /build/
 /venv/
-/.vscode/
+/.make/
 __pycache__/
 *.pyc
